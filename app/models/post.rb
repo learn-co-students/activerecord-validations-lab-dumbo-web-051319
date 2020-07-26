@@ -5,13 +5,11 @@
     validates :category, inclusion: {in: %w(Fiction Non-Fiction)}
     validate  :clickbait
 
-    #NO FUNCIONA // DOES NOT WORK
+  
     def clickbait
       clickbait_words = ["Won't Believe", "Secret", "Top [number]", "Guess"]
-      clickbait_words.each do |word|
-        unless self.title.include?(word)
-          self.errors.add(:title, "Not clickbait-y enough")
-        end
+      if clickbait_words.none? {|pattern| pattern.match title}
+        errors.add{:title, "Not clickbait-y enough")
       end
     end
 
